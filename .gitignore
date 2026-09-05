@@ -1,0 +1,19 @@
+# 認証情報・個人情報（絶対にコミットしない）
+.env
+メールアドレス.txt
+*.local
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Playwright / 一時ファイル
+.playwright/
+scripts/_report_tmp.html
+*.tmp
+
+# OS
+.DS_Store
+Thumbs.db

@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>月次セキュリティレポート {{ month_label }}</title>
+<style>
+  /* PDF用。A4・余白なし。サイト(style.css)と同じダークトーンで統一 */
+  :root{
+    --bg:#0b1020; --panel:#141b2e; --panel-2:#1b2438; --ink:#e8ecf6;
+    --muted:#9aa6bd; --line:#28324a; --accent:#5b9bff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:A4;margin:0}
+  html,body{background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;padding:20mm 18mm;page-break-after:always;position:relative}
+  .page:last-child{page-break-after:auto}
+
+  /* --- 表紙 --- */
+  .cover{background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(91,155,255,.35), transparent 60%),
+      radial-gradient(900px 500px at 110% 20%, rgba(168,85,247,.28), transparent 55%),
+      var(--bg);
+    display:flex;flex-direction:column;justify-content:center}
+  .cover .kicker{letter-spacing:.28em;font-size:11px;color:var(--accent);text-transform:uppercase}
+  .cover h1{font-size:40px;line-height:1.2;margin:14px 0 8px;font-weight:800}
+  .cover .month{font-size:22px;color:var(--muted);font-weight:600}
+  .cover .meta{margin-top:auto;font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+  .cover .stat-row{display:flex;gap:14px;margin-top:28px}
+  .cover .stat{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:16px 18px;flex:1}
+  .cover .stat b{display:block;font-size:26px}
+  .cover .stat span{font-size:11px;color:var(--muted)}
+
+  /* --- 共通見出し --- */
+  .section-title{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h2{font-size:20px;margin-bottom:16px}
+
+  /* --- サマリ --- */
+  .cat-list{display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
+  .cat-row{display:grid;grid-template-columns:130px 1fr 40px;align-items:center;gap:10px;font-size:12px}
+  .cat-bar{height:8px;border-radius:999px;background:var(--panel-2);overflow:hidden}
+  .cat-bar>i{display:block;height:100%;border-radius:999px}
+  .src-list{font-size:12px;color:var(--muted);line-height:1.9}
+  .src-list b{color:var(--ink)}
+
+  /* --- Top記事 --- */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;margin-bottom:14px;page-break-inside:avoid}
+  .card .head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .rank{width:26px;height:26px;border-radius:8px;background:var(--accent);color:#04101f;
+    font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .chip{font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;color:#04101f}
+  .card h3{font-size:15px;line-height:1.45;margin:2px 0 4px}
+  .card .orig{font-size:10px;color:var(--muted);margin-bottom:6px;font-style:italic}
+  .card .sub{font-size:11px;color:var(--muted);margin-bottom:8px}
+  .card p{font-size:12px;line-height:1.7;color:#cfd7e8}
+  .card .why{margin-top:10px;font-size:11px;color:var(--ink);
+    background:rgba(91,155,255,.12);border:1px solid rgba(91,155,255,.3);
+    border-radius:10px;padding:7px 10px;display:inline-block}
+  .card .analysis{margin-top:10px;font-size:12px;line-height:1.75;color:var(--ink);
+    background:rgba(168,85,247,.10);border-left:3px solid var(--accent-2, #a855f7);
+    border-radius:6px;padding:10px 12px}
+  .card .analysis b{display:block;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:#c4a5f0;margin-bottom:4px}
+  .card .cve{font-size:10px;color:var(--muted);margin-top:6px}
+  .card a{color:var(--accent);font-size:11px;word-break:break-all}
+  .foot{position:absolute;left:18mm;right:18mm;bottom:12mm;font-size:10px;color:var(--muted);
+    border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<!-- 表紙 -->
+<section class="page cover">
+  <div class="kicker">Monthly Cyber Security Digest</div>
+  <h1>月次セキュリティ<br>ニュースレポート</h1>
+  <div class="month">{{ month_label }}</div>
+  <div class="stat-row">
+    <div class="stat"><b>{{ total }}</b><span>収集記事数</span></div>
+    <div class="stat"><b>{{ top_n }}</b><span>注目ピックアップ</span></div>
+    <div class="stat"><b>{{ categories|length }}</b><span>関連カテゴリ</span></div>
+  </div>
+  <div class="meta">生成日時: {{ generated_at }} ／ 対象期間: {{ month_label }}（2026年4月以降のデータに基づく）</div>
+</section>
+
+<!-- サマリ -->
+<section class="page">
+  <div class="section-title">Overview</div>
+  <h2>今月のサマリ</h2>
+  <div class="cat-list">
+    {% for c in categories %}
+    <div class="cat-row">
+      <span>{{ c.label }}</span>
+      <span class="cat-bar"><i style="width:{{ c.bar_pct }}%;background:{{ c.color }}"></i></span>
+      <span style="text-align:right">{{ c.count }}</span>
+    </div>
+    {% endfor %}
+  </div>
+
+  <div class="section-title">Top sources</div>
+  <div class="src-list">
+    {% for name, n in top_sources %}<b>{{ name }}</b> … {{ n }}件<br>{% endfor %}
+  </div>
+
+  <div class="foot"><span>月次セキュリティニュースレポート</span><span>{{ month_label }}</span></div>
+</section>
+
+<!-- 注目ニュース -->
+<section class="page">
+  <div class="section-title">Top stories by category</div>
+  <h2>今月の注目ニュース（各カテゴリ 注目度1位）</h2>
+  {% for it in top_items %}
+  <article class="card">
+    <div class="head">
+      <span class="rank">{{ loop.index }}</span>
+      <span class="chip" style="background:{{ it.category_color }}">{{ it.category_label }}</span>
+    </div>
+    <h3>{{ it.title_disp }}</h3>
+    {% if it.title_ja %}<div class="orig">原題: {{ it.title }}</div>{% endif %}
+    <div class="sub">{{ it.source }} ／ {{ it.published_date }}</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>{{ it.summary_disp }}</p>
+    {% if it.cves %}<div class="cve">関連CVE: {{ it.cves|join(", ") }}</div>{% endif %}
+    {% if it.analysis %}
+    <div class="analysis"><b>{{ it.analysis_label }}</b>{{ it.analysis }}</div>
+    {% else %}
+    <div class="why">注目理由: {{ it.why }}</div>
+    {% endif %}
+    <div style="margin-top:8px"><a href="{{ it.url }}">{{ it.url }}</a></div>
+  </article>
+  {% endfor %}
+  <div class="foot"><span>自動生成レポート</span><span>{{ generated_at }}</span></div>
+</section>
+
+</body>
+</html>

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>月次セキュリティレポート 2026年7月</title>
+<style>
+  /* PDF用。A4・余白なし。サイト(style.css)と同じダークトーンで統一 */
+  :root{
+    --bg:#0b1020; --panel:#141b2e; --panel-2:#1b2438; --ink:#e8ecf6;
+    --muted:#9aa6bd; --line:#28324a; --accent:#5b9bff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:A4;margin:0}
+  html,body{background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;padding:20mm 18mm;page-break-after:always;position:relative}
+  .page:last-child{page-break-after:auto}
+
+  /* --- 表紙 --- */
+  .cover{background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(91,155,255,.35), transparent 60%),
+      radial-gradient(900px 500px at 110% 20%, rgba(168,85,247,.28), transparent 55%),
+      var(--bg);
+    display:flex;flex-direction:column;justify-content:center}
+  .cover .kicker{letter-spacing:.28em;font-size:11px;color:var(--accent);text-transform:uppercase}
+  .cover h1{font-size:40px;line-height:1.2;margin:14px 0 8px;font-weight:800}
+  .cover .month{font-size:22px;color:var(--muted);font-weight:600}
+  .cover .meta{margin-top:auto;font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+  .cover .stat-row{display:flex;gap:14px;margin-top:28px}
+  .cover .stat{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:16px 18px;flex:1}
+  .cover .stat b{display:block;font-size:26px}
+  .cover .stat span{font-size:11px;color:var(--muted)}
+
+  /* --- 共通見出し --- */
+  .section-title{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h2{font-size:20px;margin-bottom:16px}
+
+  /* --- サマリ --- */
+  .cat-list{display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
+  .cat-row{display:grid;grid-template-columns:130px 1fr 40px;align-items:center;gap:10px;font-size:12px}
+  .cat-bar{height:8px;border-radius:999px;background:var(--panel-2);overflow:hidden}
+  .cat-bar>i{display:block;height:100%;border-radius:999px}
+  .src-list{font-size:12px;color:var(--muted);line-height:1.9}
+  .src-list b{color:var(--ink)}
+
+  /* --- Top記事 --- */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;margin-bottom:14px;page-break-inside:avoid}
+  .card .head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .rank{width:26px;height:26px;border-radius:8px;background:var(--accent);color:#04101f;
+    font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .chip{font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;color:#04101f}
+  .card h3{font-size:15px;line-height:1.45;margin:2px 0 4px}
+  .card .orig{font-size:10px;color:var(--muted);margin-bottom:6px;font-style:italic}
+  .card .sub{font-size:11px;color:var(--muted);margin-bottom:8px}
+  .card p{font-size:12px;line-height:1.7;color:#cfd7e8}
+  .card .why{margin-top:10px;font-size:11px;color:var(--ink);
+    background:rgba(91,155,255,.12);border:1px solid rgba(91,155,255,.3);
+    border-radius:10px;padding:7px 10px;display:inline-block}
+  .card .analysis{margin-top:10px;font-size:12px;line-height:1.75;color:var(--ink);
+    background:rgba(168,85,247,.10);border-left:3px solid var(--accent-2, #a855f7);
+    border-radius:6px;padding:10px 12px}
+  .card .analysis b{display:block;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:#c4a5f0;margin-bottom:4px}
+  .card .cve{font-size:10px;color:var(--muted);margin-top:6px}
+  .card a{color:var(--accent);font-size:11px;word-break:break-all}
+  .foot{position:absolute;left:18mm;right:18mm;bottom:12mm;font-size:10px;color:var(--muted);
+    border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<!-- 表紙 -->
+<section class="page cover">
+  <div class="kicker">Monthly Cyber Security Digest</div>
+  <h1>月次セキュリティ<br>ニュースレポート</h1>
+  <div class="month">2026年7月</div>
+  <div class="stat-row">
+    <div class="stat"><b>7</b><span>収集記事数</span></div>
+    <div class="stat"><b>4</b><span>注目ピックアップ</span></div>
+    <div class="stat"><b>4</b><span>関連カテゴリ</span></div>
+  </div>
+  <div class="meta">生成日時: 2026-08-30 18:36 JST ／ 対象期間: 2026年7月（2026年4月以降のデータに基づく）</div>
+</section>
+
+<!-- サマリ -->
+<section class="page">
+  <div class="section-title">Overview</div>
+  <h2>今月のサマリ</h2>
+  <div class="cat-list">
+    
+    <div class="cat-row">
+      <span>脆弱性</span>
+      <span class="cat-bar"><i style="width:100%;background:#f97316"></i></span>
+      <span style="text-align:right">3</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>データ漏洩</span>
+      <span class="cat-bar"><i style="width:67%;background:#ec4899"></i></span>
+      <span style="text-align:right">2</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>クラウド・OSS</span>
+      <span class="cat-bar"><i style="width:33%;background:#38bdf8"></i></span>
+      <span style="text-align:right">1</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>ツール・リサーチ</span>
+      <span class="cat-bar"><i style="width:33%;background:#eab308"></i></span>
+      <span style="text-align:right">1</span>
+    </div>
+    
+  </div>
+
+  <div class="section-title">Top sources</div>
+  <div class="src-list">
+    <b>Krebs on Security</b> … 6件<br><b>JPCERT/CC 注意喚起</b> … 1件<br>
+  </div>
+
+  <div class="foot"><span>月次セキュリティニュースレポート</span><span>2026年7月</span></div>
+</section>
+
+<!-- 注目ニュース -->
+<section class="page">
+  <div class="section-title">Top stories by category</div>
+  <h2>今月の注目ニュース（各カテゴリ 注目度1位）</h2>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">1</span>
+      <span class="chip" style="background:#f97316">脆弱性</span>
+    </div>
+    <h3>注意喚起: 2026年 7月マイクロソフトセキュリティ更新プログラムに関する注意喚起 更新()</h3>
+    <div class="orig">原題: 注意喚起: 2026年7月マイクロソフトセキュリティ更新プログラムに関する注意喚起 (更新)</div>
+    <div class="sub">JPCERT/CC 注意喚起 ／ 2026-07-31</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br></p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「脆弱性」分野のニュースで、JPCERT/CC 注意喚起が報じた。該当製品・バージョンを利用している場合、リモートからの侵害や権限奪取につながる可能性がある。推奨対応: 資産管理台帳で該当有無を確認し、提供されていればパッチ適用、無ければ回避策と監視を強化する。一次情報に近い主要ソースからの報道である。</div>
+    
+    <div style="margin-top:8px"><a href="https://www.jpcert.or.jp/at/2026/at260020.html">https://www.jpcert.or.jp/at/2026/at260020.html</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">2</span>
+      <span class="chip" style="background:#eab308">ツール・リサーチ</span>
+    </div>
+    <h3>そのテレビストリーミングスティックを購入する前にこれを読んでください</h3>
+    <div class="orig">原題: Read This Before You Buy That TV Streaming Stick</div>
+    <div class="sub">Krebs on Security ／ 2026-07-30</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>セキュリティ専門家は、1回限りの料金で無制限のコンテンツストリーミングを約束する一般的なテレビボックスを使用することのリスクについて長年にわたって警告を発しており、ユーザーのインターネット接続を秘密裏に見知らぬ人に貸し出していると警告しています。しかし、画期的な新しい分析では、これらのデバイスも日常的にスプーフィングされていることがわかりました...</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「ツール・リサーチ」分野のニュースで、Krebs on Securityが報じた。攻撃・防御いずれの手法にも転用されうるため、脅威動向として把握しておく価値がある。推奨対応: 自組織の検知ルール・演習シナリオへの反映余地を評価する。</div>
+    
+    <div style="margin-top:8px"><a href="https://krebsonsecurity.com/2026/07/read-this-before-you-buy-that-tv-streaming-stick/">https://krebsonsecurity.com/2026/07/read-this-before-you-buy-that-tv-streaming-stick/</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">3</span>
+      <span class="chip" style="background:#38bdf8">クラウド・OSS</span>
+    </div>
+    <h3>マイクロソフトがレコード570のセキュリティ欠陥にパッチを適用</h3>
+    <div class="orig">原題: Microsoft Patches a Record 570 Security Flaws</div>
+    <div class="sub">Krebs on Security ／ 2026-07-14</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>Microsoft Corp.は本日、Windowsオペレーティングシステムやその他のソフトウェアに少なくとも570のセキュリティホールを埋めるためのソフトウェアアップデートをリリースした。これは、同社が先月発表した記録的なパッチ火曜日リリースで修正した脆弱性の数のほぼ3倍である。マイクロソフトは、急増するパッチ数をvulnのせいにしました...</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「クラウド・OSS」分野のニュースで、Krebs on Securityが報じた。修正版またはパッチが提供されている。クラウド設定や依存パッケージ経由で、複数システムに横断的な影響が及ぶ可能性がある。推奨対応: IAM権限と公開範囲の再点検、依存パッケージのバージョン固定と署名検証、SBOMの整備を進める。</div>
+    
+    <div style="margin-top:8px"><a href="https://krebsonsecurity.com/2026/07/microsoft-patches-a-record-570-security-flaws/">https://krebsonsecurity.com/2026/07/microsoft-patches-a-record-570-security-flaws/</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">4</span>
+      <span class="chip" style="background:#ec4899">データ漏洩</span>
+    </div>
+    <h3>CISAの最近のGitHubリークから学んだ教訓</h3>
+    <div class="orig">原題: Lessons Learned from CISA’s Recent GitHub Leak</div>
+    <div class="sub">Krebs on Security ／ 2026-07-13</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>Cybersecurity and Infrastructure Security Agency （ CISA ）は、KrebsOnSecurityから通知を受けるまでのほぼ6か月間、請負業者がAWS Govcloudキーを含む数十の内部CISA資格情報を公開GitHubリポジトリに公開したデータ漏洩に関する事後調査を発行しました。専門家によると、ギャップのアイデアは…</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「データ漏洩」分野のニュースで、Krebs on Securityが報じた。漏えいした資格情報や個人情報が、なりすまし・標的型攻撃の起点として悪用される恐れがある。推奨対応: 影響ユーザーへの通知方針を確認し、パスワード強制リセットと不審ログインの監視を行う。</div>
+    
+    <div style="margin-top:8px"><a href="https://krebsonsecurity.com/2026/07/lessons-learned-from-cisas-recent-github-leak/">https://krebsonsecurity.com/2026/07/lessons-learned-from-cisas-recent-github-leak/</a></div>
+  </article>
+  
+  <div class="foot"><span>自動生成レポート</span><span>2026-08-30 18:36 JST</span></div>
+</section>
+
+</body>
+</html>

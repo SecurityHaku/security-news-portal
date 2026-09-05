@@ -1,0 +1,70 @@
+# 収集対象のRSS/Atomフィード一覧。
+#   name     : 表示名（記事のソースとして使う）
+#   url      : フィードURL
+#   category : 既定カテゴリ（記事本文のキーワードで再分類される場合あり）
+#   weight   : ソース信頼度の重み（注目度スコアに乗算。1.0が標準、主要媒体は高め）
+#
+# カテゴリ候補: vulnerability / ransomware / apt / data-breach / cloud-oss / ai / regulation / tools-research
+#   （記事本文のキーワードで再分類されるため、ここは「取りこぼし時の既定値」の位置づけ）
+# フィードの追加・削除はこのファイルだけで完結する。
+
+feeds:
+  - name: "JPCERT/CC 注意喚起"
+    url: "https://www.jpcert.or.jp/rss/jpcert.rdf"
+    category: vulnerability
+    weight: 1.4
+
+  - name: "JPCERT/CC 脆弱性関連情報"
+    url: "https://www.jpcert.or.jp/rss/wpu.rdf"
+    category: vulnerability
+    weight: 1.3
+
+  - name: "CISA Advisories"
+    url: "https://www.cisa.gov/cybersecurity-advisories/all.xml"
+    category: vulnerability
+    weight: 1.4
+
+  - name: "The Hacker News"
+    url: "https://feeds.feedburner.com/TheHackersNews"
+    category: tools-research
+    weight: 1.1
+
+  - name: "BleepingComputer"
+    url: "https://www.bleepingcomputer.com/feed/"
+    category: ransomware
+    weight: 1.1
+
+  - name: "Krebs on Security"
+    url: "https://krebsonsecurity.com/feed/"
+    category: data-breach
+    weight: 1.2
+
+  - name: "Google Online Security Blog"
+    url: "https://security.googleblog.com/feeds/posts/default"
+    category: tools-research
+    weight: 1.2
+
+  - name: "Microsoft MSRC Blog"
+    url: "https://msrc.microsoft.com/blog/feed"
+    category: vulnerability
+    weight: 1.2
+
+  - name: "SANS Internet Storm Center"
+    url: "https://isc.sans.edu/rssfeed_full.xml"
+    category: tools-research
+    weight: 1.1
+
+  - name: "The Record"
+    url: "https://therecord.media/feed"
+    category: apt
+    weight: 1.1
+
+  - name: "Dark Reading"
+    url: "https://www.darkreading.com/rss.xml"
+    category: tools-research
+    weight: 1.0
+
+  - name: "Cloud Security Alliance"
+    url: "https://cloudsecurityalliance.org/blog/feed/"
+    category: cloud-oss
+    weight: 1.0

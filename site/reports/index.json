@@ -1,0 +1,22 @@
+[
+  {
+    "month": "2026-08",
+    "month_label": "2026年8月",
+    "file": "security-report-2026-08.pdf",
+    "pdf": "security-report-2026-08.pdf",
+    "html": "security-report-2026-08.html",
+    "total": 190,
+    "top_n": 8,
+    "generated_at": "2026-08-30 18:36 JST"
+  },
+  {
+    "month": "2026-07",
+    "month_label": "2026年7月",
+    "file": "security-report-2026-07.pdf",
+    "pdf": "security-report-2026-07.pdf",
+    "html": "security-report-2026-07.html",
+    "total": 7,
+    "top_n": 4,
+    "generated_at": "2026-08-30 18:36 JST"
+  }
+]

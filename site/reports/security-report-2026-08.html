@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>月次セキュリティレポート 2026年8月</title>
+<style>
+  /* PDF用。A4・余白なし。サイト(style.css)と同じダークトーンで統一 */
+  :root{
+    --bg:#0b1020; --panel:#141b2e; --panel-2:#1b2438; --ink:#e8ecf6;
+    --muted:#9aa6bd; --line:#28324a; --accent:#5b9bff;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  @page{size:A4;margin:0}
+  html,body{background:var(--bg);color:var(--ink);
+    font-family:"Segoe UI","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic UI",sans-serif;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .page{width:210mm;min-height:297mm;padding:20mm 18mm;page-break-after:always;position:relative}
+  .page:last-child{page-break-after:auto}
+
+  /* --- 表紙 --- */
+  .cover{background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(91,155,255,.35), transparent 60%),
+      radial-gradient(900px 500px at 110% 20%, rgba(168,85,247,.28), transparent 55%),
+      var(--bg);
+    display:flex;flex-direction:column;justify-content:center}
+  .cover .kicker{letter-spacing:.28em;font-size:11px;color:var(--accent);text-transform:uppercase}
+  .cover h1{font-size:40px;line-height:1.2;margin:14px 0 8px;font-weight:800}
+  .cover .month{font-size:22px;color:var(--muted);font-weight:600}
+  .cover .meta{margin-top:auto;font-size:11px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px}
+  .cover .stat-row{display:flex;gap:14px;margin-top:28px}
+  .cover .stat{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:14px;padding:16px 18px;flex:1}
+  .cover .stat b{display:block;font-size:26px}
+  .cover .stat span{font-size:11px;color:var(--muted)}
+
+  /* --- 共通見出し --- */
+  .section-title{font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+  h2{font-size:20px;margin-bottom:16px}
+
+  /* --- サマリ --- */
+  .cat-list{display:flex;flex-direction:column;gap:10px;margin-bottom:26px}
+  .cat-row{display:grid;grid-template-columns:130px 1fr 40px;align-items:center;gap:10px;font-size:12px}
+  .cat-bar{height:8px;border-radius:999px;background:var(--panel-2);overflow:hidden}
+  .cat-bar>i{display:block;height:100%;border-radius:999px}
+  .src-list{font-size:12px;color:var(--muted);line-height:1.9}
+  .src-list b{color:var(--ink)}
+
+  /* --- Top記事 --- */
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px;margin-bottom:14px;page-break-inside:avoid}
+  .card .head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+  .rank{width:26px;height:26px;border-radius:8px;background:var(--accent);color:#04101f;
+    font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center}
+  .chip{font-size:10px;font-weight:700;padding:3px 9px;border-radius:999px;color:#04101f}
+  .card h3{font-size:15px;line-height:1.45;margin:2px 0 4px}
+  .card .orig{font-size:10px;color:var(--muted);margin-bottom:6px;font-style:italic}
+  .card .sub{font-size:11px;color:var(--muted);margin-bottom:8px}
+  .card p{font-size:12px;line-height:1.7;color:#cfd7e8}
+  .card .why{margin-top:10px;font-size:11px;color:var(--ink);
+    background:rgba(91,155,255,.12);border:1px solid rgba(91,155,255,.3);
+    border-radius:10px;padding:7px 10px;display:inline-block}
+  .card .analysis{margin-top:10px;font-size:12px;line-height:1.75;color:var(--ink);
+    background:rgba(168,85,247,.10);border-left:3px solid var(--accent-2, #a855f7);
+    border-radius:6px;padding:10px 12px}
+  .card .analysis b{display:block;font-size:10px;letter-spacing:.12em;
+    text-transform:uppercase;color:#c4a5f0;margin-bottom:4px}
+  .card .cve{font-size:10px;color:var(--muted);margin-top:6px}
+  .card a{color:var(--accent);font-size:11px;word-break:break-all}
+  .foot{position:absolute;left:18mm;right:18mm;bottom:12mm;font-size:10px;color:var(--muted);
+    border-top:1px solid var(--line);padding-top:8px;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+
+<!-- 表紙 -->
+<section class="page cover">
+  <div class="kicker">Monthly Cyber Security Digest</div>
+  <h1>月次セキュリティ<br>ニュースレポート</h1>
+  <div class="month">2026年8月</div>
+  <div class="stat-row">
+    <div class="stat"><b>190</b><span>収集記事数</span></div>
+    <div class="stat"><b>8</b><span>注目ピックアップ</span></div>
+    <div class="stat"><b>8</b><span>関連カテゴリ</span></div>
+  </div>
+  <div class="meta">生成日時: 2026-08-30 18:36 JST ／ 対象期間: 2026年8月（2026年4月以降のデータに基づく）</div>
+</section>
+
+<!-- サマリ -->
+<section class="page">
+  <div class="section-title">Overview</div>
+  <h2>今月のサマリ</h2>
+  <div class="cat-list">
+    
+    <div class="cat-row">
+      <span>脆弱性</span>
+      <span class="cat-bar"><i style="width:100%;background:#f97316"></i></span>
+      <span style="text-align:right">70</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>ランサムウェア</span>
+      <span class="cat-bar"><i style="width:6%;background:#ef4444"></i></span>
+      <span style="text-align:right">4</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>APT・脅威アクター</span>
+      <span class="cat-bar"><i style="width:30%;background:#a855f7"></i></span>
+      <span style="text-align:right">21</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>データ漏洩</span>
+      <span class="cat-bar"><i style="width:11%;background:#ec4899"></i></span>
+      <span style="text-align:right">8</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>クラウド・OSS</span>
+      <span class="cat-bar"><i style="width:26%;background:#38bdf8"></i></span>
+      <span style="text-align:right">18</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>AI・LLMセキュリティ</span>
+      <span class="cat-bar"><i style="width:37%;background:#14b8a6"></i></span>
+      <span style="text-align:right">26</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>規制・コンプライアンス</span>
+      <span class="cat-bar"><i style="width:4%;background:#22c55e"></i></span>
+      <span style="text-align:right">3</span>
+    </div>
+    
+    <div class="cat-row">
+      <span>ツール・リサーチ</span>
+      <span class="cat-bar"><i style="width:57%;background:#eab308"></i></span>
+      <span style="text-align:right">40</span>
+    </div>
+    
+  </div>
+
+  <div class="section-title">Top sources</div>
+  <div class="src-list">
+    <b>The Hacker News</b> … 42件<br><b>Dark Reading</b> … 38件<br><b>CISA Advisories</b> … 30件<br><b>JPCERT/CC 注意喚起</b> … 23件<br><b>Cloud Security Alliance</b> … 20件<br>
+  </div>
+
+  <div class="foot"><span>月次セキュリティニュースレポート</span><span>2026年8月</span></div>
+</section>
+
+<!-- 注目ニュース -->
+<section class="page">
+  <div class="section-title">Top stories by category</div>
+  <h2>今月の注目ニュース（各カテゴリ 注目度1位）</h2>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">1</span>
+      <span class="chip" style="background:#f97316">脆弱性</span>
+    </div>
+    <h3>CISAがカタログに3つの既知の脆弱性を追加</h3>
+    <div class="orig">原題: CISA Adds Three Known Exploited Vulnerabilities to Catalog</div>
+    <div class="sub">CISA Advisories ／ 2026-08-27</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>CISA has added three new vulnerabilities to its Known Exploited Vulnerabilities (KEV) Catalog , based on evidence of active exploitation. CVE-2023-49105 ownCloud Improper Authentication Vulnerability CVE-2026-53362 Linux Kernel Unspecified Vulnerability CVE-2026-66384 JFrog Artifactory Improper Limitation of a Pathnam…</p>
+    <div class="cve">関連CVE: CVE-2023-49105, CVE-2026-53362, CVE-2026-66384</div>
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「脆弱性」分野のニュースで、CISA Advisoriesが報じた。CVE（CVE-2023-49105, CVE-2026-53362, CVE-2026-66384）が採番されている。該当製品・バージョンを利用している場合、リモートからの侵害や権限奪取につながる可能性がある。推奨対応: 資産管理台帳で該当有無を確認し、提供されていればパッチ適用、無ければ回避策と監視を強化する。複数（11媒体）が取り上げており、業界的な注目度は高い。</div>
+    
+    <div style="margin-top:8px"><a href="https://www.cisa.gov/news-events/alerts/2026/08/27/cisa-adds-three-known-exploited-vulnerabilities-catalog">https://www.cisa.gov/news-events/alerts/2026/08/27/cisa-adds-three-known-exploited-vulnerabilities-catalog</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">2</span>
+      <span class="chip" style="background:#eab308">ツール・リサーチ</span>
+    </div>
+    <h3>ISC Stormcast 2026年8月28日（金） https://isc.sans.edu/podcastdetail/10072 （ 8月28日（金） ）</h3>
+    <div class="orig">原題: ISC Stormcast For Friday, August 28th, 2026 https://isc.sans.edu/podcastdetail/10072, (Fri, Aug 28th)</div>
+    <div class="sub">SANS Internet Storm Center ／ 2026-08-27</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>(c) SANS Internet Storm Center. https://isc.sans.edu Creative Commons Attribution-Noncommercial 3.0 United States License.</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「ツール・リサーチ」分野のニュースで、SANS Internet Storm Centerが報じた。攻撃・防御いずれの手法にも転用されうるため、脅威動向として把握しておく価値がある。推奨対応: 自組織の検知ルール・演習シナリオへの反映余地を評価する。複数（5媒体）が取り上げており、業界的な注目度は高い。</div>
+    
+    <div style="margin-top:8px"><a href="https://isc.sans.edu/diary/rss/33294">https://isc.sans.edu/diary/rss/33294</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">3</span>
+      <span class="chip" style="background:#38bdf8">クラウド・OSS</span>
+    </div>
+    <h3>オーストラリア、サプライチェーン攻撃の背後にいるTeamPCPハッカー容疑者を逮捕</h3>
+    <div class="orig">原題: Australia arrests alleged TeamPCP hackers behind supply-chain attacks</div>
+    <div class="sub">BleepingComputer ／ 2026-08-27</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>Australian authorities have arrested and charged two young men accused of being part of the TeamPCP hacking group linked to a string of far-reaching developer supply chain attacks. [...]</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「クラウド・OSS」分野のニュースで、BleepingComputerが報じた。クラウド設定や依存パッケージ経由で、複数システムに横断的な影響が及ぶ可能性がある。推奨対応: IAM権限と公開範囲の再点検、依存パッケージのバージョン固定と署名検証、SBOMの整備を進める。2つの媒体が取り上げている。</div>
+    
+    <div style="margin-top:8px"><a href="https://www.bleepingcomputer.com/news/security/australia-arrests-alleged-teampcp-hackers-behind-supply-chain-attacks/">https://www.bleepingcomputer.com/news/security/australia-arrests-alleged-teampcp-hackers-behind-supply-chain-attacks/</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">4</span>
+      <span class="chip" style="background:#a855f7">APT・脅威アクター</span>
+    </div>
+    <h3>フィリピンの研究機関から核記録を盗むために悪用されたownCloudの欠陥</h3>
+    <div class="orig">原題: ownCloud Flaw Exploited to Steal Nuclear Records From Philippine Research Body</div>
+    <div class="sub">The Hacker News ／ 2026-08-28</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>The U.S. Cybersecurity and Infrastructure Security Agency (CISA) on Thursday added a critical security flaw impacting ownCloud to its Known Exploited Vulnerabilities (KEV) catalog following reports that a Chinese-speaking threat actor weaponized the vulnerability to target a nuclear research body in the Philippines. T…</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「APT・脅威アクター」分野のニュースで、The Hacker Newsが報じた。深刻度が高いと位置づけられている。高度な攻撃者による長期潜伏・情報窃取を想定する必要があり、検知の難易度が高い。推奨対応: 該当IOC・TTPでのスレットハンティング、ログ保全期間の延長、多要素認証と特権アクセスの棚卸しを実施する。</div>
+    
+    <div style="margin-top:8px"><a href="https://thehackernews.com/2026/08/snowflake-github-actions-flaw-lets.html">https://thehackernews.com/2026/08/snowflake-github-actions-flaw-lets.html</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">5</span>
+      <span class="chip" style="background:#ec4899">データ漏洩</span>
+    </div>
+    <h3>OpenAIは、報酬ハッキングがAIエージェントを駆り立ててゼロデイを悪用し、ハグの顔を突破したと述べています</h3>
+    <div class="orig">原題: OpenAI Says Reward Hacking Drove AI Agents to Exploit Zero-Days and Breach Hugging Face</div>
+    <div class="sub">The Hacker News ／ 2026-08-27</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>OpenAI on Wednesday revealed that reward hacking was a key driver behind the artificial intelligence (AI)-powered hack of Hugging Face last month, adding that it found evidence of misaligned behavior as early as late May. The incident, the company said, took place during cybersecurity evaluations of several OpenAI mod…</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「データ漏洩」分野のニュースで、The Hacker Newsが報じた。実環境での悪用が報告されており緊急度が高い。漏えいした資格情報や個人情報が、なりすまし・標的型攻撃の起点として悪用される恐れがある。推奨対応: 影響ユーザーへの通知方針を確認し、パスワード強制リセットと不審ログインの監視を行う。</div>
+    
+    <div style="margin-top:8px"><a href="https://thehackernews.com/2026/08/openai-says-reward-hacking-drove-ai.html">https://thehackernews.com/2026/08/openai-says-reward-hacking-drove-ai.html</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">6</span>
+      <span class="chip" style="background:#14b8a6">AI・LLMセキュリティ</span>
+    </div>
+    <h3>Anthropic is cutting Claude Code's current weekly limits by 17%</h3>
+    
+    <div class="sub">BleepingComputer ／ 2026-08-29</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>Anthropic is permanently increasing Claude Code's standard weekly usage limits by 25% for Pro, Max, Team, and seat-based Enterprise plans, but it's not as good as it sounds. [...]</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「AI・LLMセキュリティ」分野のニュースで、BleepingComputerが報じた。生成AI・LLMの利用箇所（社内チャットボット、コード補完、AIエージェント等）で、プロンプトインジェクションや情報漏えい・不正操作につながる可能性がある。推奨対応: AI利用のガイドライン整備、入出力のフィルタリング・最小権限化、AIエージェントの操作範囲の制限、社外AIサービスへの機微情報入力の管理を行う。</div>
+    
+    <div style="margin-top:8px"><a href="https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-is-cutting-claude-codes-current-weekly-limits-by-17-percent/">https://www.bleepingcomputer.com/news/artificial-intelligence/anthropic-is-cutting-claude-codes-current-weekly-limits-by-17-percent/</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">7</span>
+      <span class="chip" style="background:#ef4444">ランサムウェア</span>
+    </div>
+    <h3>Brave browser adds email aliases to help users evade tracking</h3>
+    
+    <div class="sub">BleepingComputer ／ 2026-08-29</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>The latest version of the Brave browser, 1.94, introduces a feature called 'Email Aliases' that allows users to generate disposable email addresses when signing up to a new service. [...]</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「ランサムウェア」分野のニュースで、BleepingComputerが報じた。業務システムの停止やデータ暗号化・窃取による二次被害（恐喝・公開）のリスクがある。推奨対応: オフライン/イミュータブルなバックアップの検証、EDRの検知強化、初期侵入経路（VPN・RDP・フィッシング）の点検を行う。</div>
+    
+    <div style="margin-top:8px"><a href="https://www.bleepingcomputer.com/news/security/brave-browser-adds-email-aliases-to-help-users-evade-tracking/">https://www.bleepingcomputer.com/news/security/brave-browser-adds-email-aliases-to-help-users-evade-tracking/</a></div>
+  </article>
+  
+  <article class="card">
+    <div class="head">
+      <span class="rank">8</span>
+      <span class="chip" style="background:#22c55e">規制・コンプライアンス</span>
+    </div>
+    <h3>脆弱性のギャップ：ディスカバリーが修復よりも優れている理由</h3>
+    <div class="orig">原題: The Vulnerability Gap: Why Discovery Is Outrunning Repair</div>
+    <div class="sub">Dark Reading ／ 2026-08-24</div>
+    <p><b style="color:var(--muted);font-size:10px;letter-spacing:.1em">概要</b><br>The combination of AI both discovering more vulnerabilities at a faster pace and the tightening regulatory environment is making this an all-hands-on-deck moment for the cybersecurity community.</p>
+    
+    
+    <div class="analysis"><b>着眼点（自動生成）</b>本件は「規制・コンプライアンス」分野のニュースで、Dark Readingが報じた。対応期限や報告義務が生じる場合があり、社内プロセス・契約条項の見直しが必要になりうる。推奨対応: 適用対象か法務と確認し、必要なら報告フロー・データ処理記録・委託先管理を更新する。</div>
+    
+    <div style="margin-top:8px"><a href="https://www.darkreading.com/cybersecurity-operations/vulnerability-gap-why-discovery-is-outrunning-repair">https://www.darkreading.com/cybersecurity-operations/vulnerability-gap-why-discovery-is-outrunning-repair</a></div>
+  </article>
+  
+  <div class="foot"><span>自動生成レポート</span><span>2026-08-30 18:36 JST</span></div>
+</section>
+
+</body>
+</html>

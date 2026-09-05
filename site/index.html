@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="ja" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<title>Security News Portal</title>
+<meta name="description" content="カテゴリ別の最新セキュリティニュースと月次レポート">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%9B%A1%EF%B8%8F%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css?v=3">
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">
+    <span class="logo">🛡️</span>
+    <div>
+      <h1>Security News Portal</h1>
+      <p id="updatedAt">読み込み中…</p>
+    </div>
+  </div>
+  <div class="topbar-actions">
+    <button id="refreshBtn" class="btn" title="最新のデータを再読み込み（クロールはパイプライン/Actionsで実行）">🔄 更新</button>
+    <button id="reportBtn" class="btn btn-primary">📄 月次レポート</button>
+    <button id="themeBtn" class="btn btn-icon" title="テーマ切替" aria-label="テーマ切替">🌗</button>
+  </div>
+</header>
+
+<div id="seedBanner" class="banner hidden">
+  サンプルデータを表示中です。<code>python scripts/collect.py</code> または GitHub Actions を実行すると実データに置き換わります。
+</div>
+
+<main class="layout">
+  <!-- 左レール: カテゴリ -->
+  <aside class="rail">
+    <h2 class="rail-title">カテゴリ</h2>
+    <ul id="categoryList" class="cat-nav"></ul>
+    <h2 class="rail-title">期間</h2>
+    <div class="seg" id="periodSeg">
+      <button data-period="current" class="active">今月</button>
+      <button data-period="3m">過去3か月</button>
+      <button data-period="all">すべて</button>
+    </div>
+  </aside>
+
+  <section class="content">
+    <!-- KPI -->
+    <div class="kpi-row" id="kpiRow"></div>
+
+    <!-- 注目トップ5 -->
+    <div class="block">
+      <div class="block-head">
+        <h2>注目トップ8 <span class="sub" id="rankScope"></span></h2>
+        <span class="sub">各カテゴリの注目度1位を集めて順位付け</span>
+      </div>
+      <div id="rankStrip" class="rank-strip"></div>
+    </div>
+
+    <!-- フィルタ + 一覧 -->
+    <div class="block">
+      <div class="block-head">
+        <h2>ニュース一覧</h2>
+        <div class="filters">
+          <input id="searchInput" type="search" placeholder="キーワード検索…" autocomplete="off">
+          <select id="sortSelect">
+            <option value="date">新着順</option>
+            <option value="score">注目度順</option>
+          </select>
+        </div>
+      </div>
+      <p id="resultMeta" class="result-meta"></p>
+      <div id="newsGrid" class="news-grid"></div>
+      <p id="emptyState" class="empty hidden">条件に一致するニュースがありません。</p>
+    </div>
+  </section>
+</main>
+
+<!-- レポートパネル -->
+<div id="reportModal" class="modal hidden" role="dialog" aria-modal="true">
+  <div class="modal-card">
+    <div class="modal-head">
+      <h2>月次レポート</h2>
+      <button id="reportClose" class="btn btn-icon" aria-label="閉じる">✕</button>
+    </div>
+    <p class="modal-note">生成済みのPDFをダウンロードできます。再生成はスクリプト / GitHub Actions で行います。</p>
+    <ul id="reportList" class="report-list"></ul>
+    <button id="printBtn" class="btn">🖨️ このページを印刷用に表示</button>
+  </div>
+</div>
+
+<footer class="foot">
+  <span>データソース: 公開RSS/Atom（JPCERT/CC・CISA 他）</span>
+  <span>2026年4月以降の情報を対象</span>
+</footer>
+
+<script src="assets/js/app.js?v=3"></script>
+</body>
+</html>

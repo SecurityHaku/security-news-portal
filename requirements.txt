@@ -1,0 +1,10 @@
+# セキュリティニュースポータル - Python依存パッケージ
+# インストール: python -m pip install -r requirements.txt
+#   （PDF変換には追加で: python -m playwright install chromium）
+#
+# フィード設定(config/feeds.yaml)は scripts/common.py の簡易パーサで読むため
+# PyYAML には依存しません。
+feedparser>=6.0.11      # RSS/Atom フィードの解析（純Python）
+Jinja2>=3.1.4           # 月次レポートHTMLのテンプレート描画
+playwright>=1.49        # レポートHTML -> PDF 変換（Chromium）
+anthropic>=1.2          # 日本語化・アナリスト見解の生成（enrich.py, Claude API）

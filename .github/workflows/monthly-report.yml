@@ -1,0 +1,87 @@
+name: 月次レポート生成・送信
+
+# 毎月1日 09:00 JST（= 前日 00:00 UTC）に前月分のレポートPDFを生成し、メール送信する。
+# 手動実行時は対象月とメール送信の有無を指定できる。
+on:
+  schedule:
+    - cron: "0 0 1 * *"
+  workflow_dispatch:
+    inputs:
+      month:
+        description: "対象月 YYYY-MM（空欄なら前月）"
+        required: false
+        default: ""
+      send_email:
+        description: "メールを送信する"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: monthly-report
+  cancel-in-progress: false
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    env:
+      REPORT_MONTH: ${{ github.event.inputs.month }}
+      # --- 日本語化・着眼点（既定は無料。ANTHROPIC_API_KEY 設定時は Claude API）---
+      ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+      MYMEMORY_EMAIL: ${{ vars.MYMEMORY_EMAIL }}
+      ENRICH_FREE_SUMMARY_TOP_N: ${{ vars.ENRICH_FREE_SUMMARY_TOP_N }}
+      ENRICH_TRANSLATE_MODEL: ${{ vars.ENRICH_TRANSLATE_MODEL }}
+      ENRICH_ANALYSIS_MODEL: ${{ vars.ENRICH_ANALYSIS_MODEL }}
+      # --- SMTP / 宛先（リポジトリの Settings > Secrets and variables > Actions に登録）---
+      SMTP_HOST: ${{ secrets.SMTP_HOST }}
+      SMTP_PORT: ${{ secrets.SMTP_PORT }}
+      SMTP_USER: ${{ secrets.SMTP_USER }}
+      SMTP_PASS: ${{ secrets.SMTP_PASS }}
+      SMTP_FROM: ${{ secrets.SMTP_FROM }}
+      SMTP_STARTTLS: ${{ secrets.SMTP_STARTTLS }}
+      REPORT_RECIPIENTS: ${{ secrets.REPORT_RECIPIENTS }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: 依存パッケージ
+        run: python -m pip install -r requirements.txt
+
+      - name: 日本語フォント（PDFの文字化け対策）
+        run: sudo apt-get update && sudo apt-get install -y fonts-noto-cjk
+
+      - name: Chromium（PDF変換用）
+        run: python -m playwright install --with-deps chromium
+
+      - name: 収集・採点
+        run: |
+          python scripts/collect.py
+          python scripts/score.py
+
+      - name: 日本語化 + 着眼点（無料エンジン。ANTHROPIC_API_KEY 設定時はLLM）
+        run: python scripts/enrich.py
+
+      - name: レポート生成
+        run: python scripts/generate_report.py
+
+      - name: データ・レポートをコミット
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add site/data/news.json site/reports
+          if git diff --cached --quiet; then
+            echo "変更なし"
+          else
+            git commit -m "chore: 月次レポート生成 ($(date -u +%Y-%m))"
+            git push
+          fi
+
+      - name: メール送信
+        if: ${{ github.event_name == 'schedule' || inputs.send_email }}
+        run: python scripts/send_email.py
